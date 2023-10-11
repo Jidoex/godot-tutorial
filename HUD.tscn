@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dabyqoysbhybt"]
+[gd_scene load_steps=5 format=3 uid="uid://dabyqoysbhybt"]
 
-[ext_resource type="FontFile" uid="uid://dxfddpuhsxwu8" path="res://fonts/Xolonium-Regular.ttf" id="1_q4pug"]
+[ext_resource type="Script" path="res://HUD.gd" id="1_yf6om"]
+[ext_resource type="FontFile" uid="uid://u3sk602cxgpa" path="res://fonts/Xolonium-Regular.ttf" id="2_h37tj"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_uas8e"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_n7cb2"]
+events = [SubResource("InputEventAction_uas8e")]
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_yf6om")
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchors_preset = 5
@@ -13,7 +21,7 @@ offset_right = 22.5
 offset_bottom = 81.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_q4pug")
+theme_override_fonts/font = ExtResource("2_h37tj")
 theme_override_font_sizes/font_size = 64
 text = "0"
 
@@ -30,7 +38,7 @@ offset_bottom = 121.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_q4pug")
+theme_override_fonts/font = ExtResource("2_h37tj")
 theme_override_font_sizes/font_size = 64
 text = "Dodge The Creeps !"
 horizontal_alignment = 1
@@ -48,10 +56,14 @@ offset_right = 100.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("1_q4pug")
+theme_override_fonts/font = ExtResource("2_h37tj")
 theme_override_font_sizes/font_size = 64
+shortcut = SubResource("Shortcut_n7cb2")
 text = "Start"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
